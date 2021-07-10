@@ -1,9 +1,9 @@
 import React, {useEffect, Suspense} from "react";
-import {Redirect, Route} from "react-router-dom";
+import {Route} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {getCurrentUser} from "../actions/authActions";
 import {Loader} from "./Loader";
-import {Col, Container, Row} from "react-bootstrap";
+import {Container} from "react-bootstrap";
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const dispatch = useDispatch()
