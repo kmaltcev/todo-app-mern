@@ -1,0 +1,7 @@
+.my-container {
+    display: flex;
+    height: 75vh;
+    margin: 0 auto;
+    max-width: 60vh !important;
+    text-align-last: center
+}

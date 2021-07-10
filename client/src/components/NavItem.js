@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {Button, Nav} from "react-bootstrap";
 import React from "react";
 
-export const Navitem = ({options}) => {
+export const NavItem = ({options}) => {
     return (
         <Nav.Item>
             <Link to={options.to} className={"my-nav-link"}>

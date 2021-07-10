@@ -1,10 +1,10 @@
 import {Button, Card} from "react-bootstrap";
 import React, {useContext} from "react";
-import {NotesContext} from "../../context/NotesContext";
-import {WarningContext} from "../../context/WarningContext";
-import "./note.css"
+import {NotesContext} from "../context/NotesContext";
+import {WarningContext} from "../context/WarningContext";
 
-export const Note = ({note}) => {
+
+export const NoteItem = ({note}) => {
     const {show} = useContext(WarningContext)
     const {removeNote} = useContext(NotesContext)
 

@@ -3,14 +3,14 @@ import React from "react";
 import store from "./store";
 import jwt_decode from "jwt-decode";
 import {Provider} from "react-redux";
-import Landing from "./pages/Landing";
-import Login from "./pages/login/Login";
-import {Burger} from "./pages/burger/Burger";
+import Landing from "./pages/landing/Landing";
+import Login from "./pages/Login";
+import {Navigation} from "./pages/Navigation";
 import setAuthToken from "./utils/setAuthToken";
-import Register from "./pages/register/Register";
+import Register from "./pages/Register";
 import Dashboard from "./pages/dashboard/Dashboard";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
-import PrivateRoute from "./components/private-route/PrivateRoute";
+import PrivateRoute from "./components/PrivateRoute";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
 
 
@@ -37,7 +37,7 @@ function App() {
     return (
         <Provider store={store}>
             <Router>
-                <Burger/>
+                <Navigation/>
                 <Switch>
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/login" component={Login}/>

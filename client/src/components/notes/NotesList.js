@@ -1,11 +1,13 @@
-import React, {useContext, useEffect, useState} from "react"
-import {Button, Card, Form, ListGroup} from "react-bootstrap";
-import {Note} from "../note/note";
-import {CardForm} from "../cardform/CardForm";
+import "./notes.css"
+import {NoteItem} from "../NoteItem";
+import {CardForm} from "../CardForm";
 import {Check} from "@material-ui/icons";
 import {NotesContext} from "../../context/NotesContext";
+import React, {useContext, useEffect, useState} from "react"
+import {Button, Card, Form, ListGroup} from "react-bootstrap";
 
-export const Notes = () => {
+
+export const NotesList = () => {
     const [note, setNote] = useState({color: "#ffffff"})
     const {notes, fetchNotes, addNote} = useContext(NotesContext)
 
@@ -26,7 +28,7 @@ export const Notes = () => {
     return (
         <ListGroup className="note-list">
             {notes.map((note, idx) =>
-                <Note key={idx} note={note}/>
+                <NoteItem key={idx} note={note}/>
             )}
             <Form onSubmit={submitHandler}>
                 <Card className="note-item" style={{"background": note.color}}>

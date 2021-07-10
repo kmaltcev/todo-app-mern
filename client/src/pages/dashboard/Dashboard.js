@@ -2,7 +2,7 @@ import React from "react";
 import {useSelector} from "react-redux";
 import {useHistory} from "react-router-dom";
 import {Container} from "react-bootstrap";
-import {Notes} from "../../components/notes/notes";
+import {NotesList} from "../../components/notes/NotesList";
 import "./dashboard.css"
 import {WarningState} from "../../components/warning/WarningState";
 import {NotesState} from "../../components/notes/NotesState";
@@ -19,7 +19,7 @@ const Dashboard = () => {
         <WarningState>
             <Container fluid className="notes-container align-items-center">
                 <NotesState>
-                    <Notes/>
+                    <NotesList/>
                 </NotesState>
             </Container>
         </WarningState>
