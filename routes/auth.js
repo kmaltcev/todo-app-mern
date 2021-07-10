@@ -1,6 +1,6 @@
 const router = require('express').Router();
 const passport = require("passport");
-const keys = require("../config/keys");
+const { FRONTEND_HOST, secretOrKey } = require("../config/keys");
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 let currentUser = {}
@@ -18,16 +18,16 @@ networks.forEach(network => {
 
     router.get(`/${network.name}/callback`, (req, res) => {
             passport.authenticate(network.name, {
-                failureRedirect: `${keys.FRONTEND_HOST}/login`,
+                failureRedirect: `${FRONTEND_HOST}/login`,
                 successRedirect: `/auth/auth-success`
-            }, (r) => {console.log(r)} )(req, res)
+            })(req, res)
         }
     )
 })
 
-router.get('/auth-success',  (req, res) => {
+router.get('/auth-success',  (req, res, next) => {
     currentUser = req.user
-    res.redirect(`${keys.FRONTEND_HOST}/dashboard`);
+    res.redirect(`${FRONTEND_HOST}/dashboard`);
 })
 
 //oAuth login
@@ -52,7 +52,7 @@ router.get("/user", (req, res) => {
                 username: user.username
             };
             // Sign token
-            jwt.sign(payload, keys.secretOrKey, {expiresIn: 31556926},
+            jwt.sign(payload, secretOrKey, {expiresIn: 31556926},
                 (err, token) => {
                     res.json({
                         user: user,

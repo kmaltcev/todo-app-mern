@@ -3,28 +3,26 @@ import setAuthToken from "../utils/setAuthToken";
 import jwt_decode from "jwt-decode";
 import {
     EMAIL, GET_ERRORS, PASS_REPEAT, PASSWORD,
-    SET_CURRENT_USER, USER_LOADING, USERNAME
+    SET_CURRENT_USER, USER_LOADING, USERNAME, HOST
 } from "./types";
-// Register User
+
 export const registerUser = (userData, history) => dispatch => {
-    axios
-        .post("/api/users/register", userData)
-        .then(_ => history.push("/login")) // re-direct to login on successful register
-        .catch(err =>
+    axios.post(`${HOST}/api/users/register`, userData)
+        .then(_ => history.push("/login"))
+        .catch(err => {
+            console.log(err)
             dispatch({
                 type: GET_ERRORS,
                 payload: err?.response?.data
             })
-        );
+        });
 };
-// Login - get user token
+
 export const loginUser = (userData) => (dispatch) => {
-    axios
-        .post("/api/users/login", userData)
+    axios.post(`${HOST}/api/users/login`, userData)
         .then(res => {
-            // Save to localStorage
-            // Set token to localStorage
             const {token} = res.data;
+            // Set token to localStorage
             localStorage.setItem("jwtToken", token);
             // Set token to Auth header
             setAuthToken(token);
@@ -34,12 +32,11 @@ export const loginUser = (userData) => (dispatch) => {
             dispatch(setCurrentUser(decoded));
         })
         .catch(err => {
-                dispatch({
-                    type: GET_ERRORS,
-                    payload: err.response.data
-                })
-            }
-        );
+            dispatch({
+                type: GET_ERRORS,
+                payload: err.response.data
+            })
+        });
 };
 
 function setToken(response, dispatch) {
@@ -56,14 +53,18 @@ function setToken(response, dispatch) {
     }
 }
 
-export const getCurrentUser = () => (dispatch) => {
+export const getCurrentUser = () => async (dispatch) => {
     dispatch(setUserLoading())
-    axios.get('/auth/user').then(response => {
+    axios.get(`${HOST}/auth/user`).then(response => {
         setToken(response, dispatch);
-    }).catch(err => dispatch({
-        type: GET_ERRORS,
-        payload: err.response.data
-    }))
+        return true
+    }).catch(err => {
+        dispatch({
+            type: GET_ERRORS,
+            payload: err.response.data
+        })
+        return false
+    })
 }
 // Set logged in user
 export const setCurrentUser = (decoded) => {

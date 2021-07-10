@@ -8,7 +8,7 @@ export const EMAIL = "email";
 export const PASSWORD = "password";
 export const PASS_REPEAT = "password2"
 
-export const SHOW_LOADER = "SHOW_LOADER"
 export const ADD_NOTE = "ADD_NOTE"
 export const FETCH_NOTES = "FETCH_NOTES"
 export const REMOVE_NOTE = "REMOVE_NOTE"
+export const HOST = ""//"http://localhost:5000"

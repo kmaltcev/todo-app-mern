@@ -1,12 +1,12 @@
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
-const keys = require("../config/keys");
+const { GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, GOOGLE_CALLBACK_URL } = require("../config/keys");
 
 const strategy = new GoogleStrategy({
-        clientID: keys.GOOGLE_CLIENT_ID,
-        clientSecret: keys.GOOGLE_CLIENT_SECRET,
-        callbackURL: keys.GOOGLE_CALLBACK_URL
+        clientID: GOOGLE_CLIENT_ID,
+        clientSecret: GOOGLE_CLIENT_SECRET,
+        callbackURL: GOOGLE_CALLBACK_URL
     },
     function(request, accessToken, refreshToken, profile, done) {
         User.findOne({

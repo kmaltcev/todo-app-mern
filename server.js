@@ -1,15 +1,16 @@
+const cors = require("cors");
 const express = require("express");
 const mongoose = require("mongoose");
 const passport = require("passport");
 const bodyParser = require("body-parser");
 const users = require("./routes/api/users");
 const notes = require('./routes/api/notes');
+const { mongoURI } = require("./config/keys");
 const cookieParser = require('cookie-parser');
 const oAuthController = require('./routes/auth');
 const expressSession = require('express-session');
 const isAuth = require('./passport/middlewareAuth');
 
-const db = require("./config/keys").mongoURI;
 const app = express();
 const port = process.env.PORT || 5000;
 
@@ -21,10 +22,11 @@ app.use(bodyParser.urlencoded({
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(expressSession({secret: 'keyboard cat', resave: true, saveUninitialized: true}));
+app.use(cors())
 
 // Connect to MongoDB
 mongoose
-    .connect(db, {useNewUrlParser: true, useUnifiedTopology: true})
+    .connect(mongoURI, {useNewUrlParser: true, useUnifiedTopology: true})
     .then(() => console.log("MongoDB successfully connected"))
     .catch(err => console.log(err));
 

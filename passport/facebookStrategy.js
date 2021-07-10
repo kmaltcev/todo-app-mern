@@ -1,12 +1,12 @@
 const FacebookStrategy = require('passport-facebook').Strategy;
 const mongoose = require("mongoose");
 const User = mongoose.model("users");
-const keys = require("../config/keys");
+const { FACEBOOK_CLIENT_ID, FACEBOOK_CLIENT_SECRET, FACEBOOK_CALLBACK_URL} = require("../config/keys");
 
 const strategy = new FacebookStrategy({
-        clientID: keys.FACEBOOK_CLIENT_ID,
-        clientSecret: keys.FACEBOOK_CLIENT_SECRET,
-        callbackURL: keys.FACEBOOK_CALLBACK_URL
+        clientID: FACEBOOK_CLIENT_ID,
+        clientSecret: FACEBOOK_CLIENT_SECRET,
+        callbackURL: FACEBOOK_CALLBACK_URL
     },
     function (accessToken, refreshToken, profile, done) {
         User.findOne({

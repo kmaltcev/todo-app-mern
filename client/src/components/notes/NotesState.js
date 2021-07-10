@@ -1,6 +1,6 @@
 import React, {useContext, useReducer} from 'react'
 import axios from 'axios'
-import {ADD_NOTE, FETCH_NOTES, REMOVE_NOTE, SHOW_LOADER} from '../../actions/types'
+import {ADD_NOTE, FETCH_NOTES, HOST, REMOVE_NOTE} from '../../actions/types'
 import {notesReducer} from "../../reducers/notesReducer";
 import {NotesContext} from "../../context/NotesContext";
 import {WarningContext} from "../../context/WarningContext";
@@ -16,12 +16,10 @@ export const NotesState = ({children}) => {
 
     const [state, dispatch] = useReducer(notesReducer, initialState, undefined)
 
-    const showLoader = () => dispatch({type: SHOW_LOADER})
 
     const fetchNotes = async () => {
         try {
-            showLoader()
-            const res = await axios.get("/api/notes/getnotes")
+            const res = await axios.get(`${HOST}/api/notes/getnotes`)
             const payload = res.data
             if (payload.length > 0) {
                 show("Success!", `${payload.length} Tasks loaded, have a good day`, "success")
@@ -38,7 +36,7 @@ export const NotesState = ({children}) => {
 
     const addNote = async (note) => {
         try {
-            const res = await axios.post("/api/notes/addnote", note)
+            const res = await axios.post(`${HOST}/api/notes/addnote`, note)
             const payload = res.data
             dispatch({type: ADD_NOTE, payload})
         }
@@ -49,7 +47,7 @@ export const NotesState = ({children}) => {
 
     const removeNote = async id => {
         try {
-            await axios.post("/api/notes/removenote", {id})
+            await axios.post(`${HOST}/api/notes/removenote`, {id})
             dispatch({
                 type: REMOVE_NOTE,
                 payload: id
@@ -62,7 +60,7 @@ export const NotesState = ({children}) => {
 
     return (
         <NotesContext.Provider value={{
-            showLoader, addNote, removeNote, fetchNotes,
+            addNote, removeNote, fetchNotes,
             loading: state.loading,
             notes: state.notes
         }}>

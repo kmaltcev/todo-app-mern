@@ -6,13 +6,18 @@ import {
 } from "react-bootstrap";
 import {useDispatch, useSelector} from "react-redux";
 import {loginUser, validateInput} from "../actions/authActions";
-import {PASSWORD, USERNAME} from "../actions/types";
+import {PASSWORD, USERNAME, HOST} from "../actions/types";
 import {Google, FacebookRounded} from "@material-ui/icons";
+import {Loader} from "../components/Loader";
 
 const Login = () => {
     const history = useHistory()
     const dispatch = useDispatch()
-    const [user, setUser] = useState({})
+    const [userDetails, setUserDetails] = useState({})
+    const [Fb, setFb] = useState(false)
+    const [Gg, setGg] = useState(false)
+    const [Pw, setPw] = useState(false)
+
     const {errors, auth} = useSelector(state => state)
 
     const onChange = ({target}) => {
@@ -20,22 +25,25 @@ const Login = () => {
         if (!validator.regex) {
             errors[target.id] = validator.text
         } else delete errors[target.id]
-        setUser({...user, [target.id]: target.value})
+        setUserDetails({...userDetails, [target.id]: target.value})
     }
 
     const onLogin = event => {
         event.preventDefault();
         const form = event.currentTarget;
         if (!form.checkValidity()) {
+            setPw(false)
             event.stopPropagation();
         }
-        dispatch(loginUser(user))
+        else {
+            setPw(true)
+            dispatch(loginUser(userDetails))
+        }
     }
 
     if (auth.isAuthenticated) {
         history.push("/dashboard");
     }
-
     return (
         <Container fluid className="reg-container align-items-center">
             <Row>
@@ -53,7 +61,7 @@ const Login = () => {
                                      placeholder="Enter your name"
                                      onChange={onChange}
                                      isInvalid={errors?.username}
-                                     isValid={!errors?.username && user?.username}/>
+                                     isValid={!errors?.username && userDetails?.username}/>
                         <Form.Control.Feedback type={errors?.username ? "invalid" : "valid"}>
                             {errors?.username || "Looks good!"}
                         </Form.Control.Feedback>
@@ -64,25 +72,28 @@ const Login = () => {
                                      placeholder="Password"
                                      onChange={onChange}
                                      isInvalid={errors?.password}
-                                     isValid={!errors?.password && user?.password}/>
+                                     isValid={!errors?.password && userDetails?.password}/>
                         <Form.Control.Feedback type={errors?.password ? "invalid" : "valid"}>
                             {errors?.password || "Looks good!"}
                         </Form.Control.Feedback>
                     </FormGroup>
                     <ButtonToolbar>
                         <ButtonGroup className="me-2">
-                            <Button variant="primary" type="submit" href="http://localhost:5000/auth/facebook">
-                                <FacebookRounded/>
+                            <Button variant="primary" type="submit" href={`${HOST}/auth/facebook`}
+                                    onClick={() => setFb(true)} disabled={Fb || Gg || Pw}>
+                                {!Fb ? <FacebookRounded/> : <Loader options={{hidden: "visually-hidden", variant: "light"}}/>}
                             </Button>
                         </ButtonGroup>
                         <ButtonGroup className="me-2">
-                            <Button variant="outline-danger" type="submit" href="http://localhost:5000/auth/google">
-                                <Google/>
+                            <Button variant="outline-danger" type="submit" href={`${HOST}/auth/google`}
+                                    onClick={() => setGg(true)} disabled={Fb || Gg || Pw}>
+                                {!Gg ? <Google/> : <Loader options={{hidden: "visually-hidden", variant: "danger"}}/>}
                             </Button>
                         </ButtonGroup>
                         <ButtonGroup className="me-2" style={{"marginLeft": "auto"}}>
-                            <Button variant="primary" type="submit">
-                                Login With Password
+                            <Button variant="primary" type="submit" disabled={Fb || Gg || Pw ||
+                            (Object.keys(userDetails).length < 2 && Object.keys(errors).length === 0) }>
+                                {!Pw ? <b>Login</b> : <Loader options={{variant: "light"}}/>}
                             </Button>
                         </ButtonGroup>
                     </ButtonToolbar>
@@ -91,5 +102,4 @@ const Login = () => {
         </Container>
     )
 }
-
 export default Login;

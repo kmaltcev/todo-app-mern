@@ -1,7 +1,7 @@
 const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const keys = require("../../config/keys");
+const { secretOrKey } = require("../../config/keys");
 
 const router = express.Router();
 // Load input validation
@@ -57,18 +57,14 @@ router.post("/login", (req, res) => {
             if (isMatch) {
                 // Create JWT Payload
                 const payload = {
-                    uid: user.uid,
+                    id: user.id,
                     username: user.username
                 };
                 // Sign token
-                jwt.sign(
-                    payload,
-                    keys.secretOrKey,
-                    {
-                        expiresIn: 31556926 // 1 year in seconds
-                    },
+                jwt.sign(payload, secretOrKey, {expiresIn: 31556926 },
                     (err, token) => {
                         res.json({
+                            user: user,
                             success: true,
                             token: "Bearer " + token
                         });

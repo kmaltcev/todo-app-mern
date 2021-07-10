@@ -8,11 +8,10 @@ import Login from "./pages/Login";
 import {Navigation} from "./pages/Navigation";
 import setAuthToken from "./utils/setAuthToken";
 import Register from "./pages/Register";
-import Dashboard from "./pages/dashboard/Dashboard";
 import {logoutUser, setCurrentUser} from "./actions/authActions";
 import PrivateRoute from "./components/PrivateRoute";
 import {BrowserRouter as Router, Route, Switch} from "react-router-dom";
-
+const Dashboard = React.lazy(() => import("./pages/dashboard/Dashboard"))
 
 function App() {
     // Check for token to keep user logged in
