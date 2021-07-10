@@ -1,0 +1,19 @@
+.note-list {
+    flex-wrap: wrap;
+    flex-grow: 1;
+    flex-direction: row !important;
+}
+
+.note-item {
+    margin-bottom: .75rem;
+    margin-right: .75rem;
+    min-width: 14rem !important;
+    max-width: 14rem;
+    min-height: 10rem;
+}
+
+.note, .alert-title {
+    display: flex;
+    justify-content: space-between;
+}
+

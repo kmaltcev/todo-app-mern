@@ -1,0 +1,45 @@
+/*.row {*/
+/*    border: solid 2px green;*/
+/*}*/
+
+/*.col {*/
+/*    border: solid 2px red;*/
+/*}*/
+
+/*.container {*/
+/*    border: solid 2px blue;*/
+/*}*/
+
+.reg-container {
+    align-items: center;
+    vertical-align: middle;
+    margin: 10vh auto;
+    min-width: 400px !important;
+    max-width: 400px !important;
+}
+
+.warn-container {
+    margin: 0 auto;
+    max-width: 800px !important;
+}
+
+.my-nav-link {
+    padding: 0 .1rem;
+}
+
+.text-btn {
+    border: none !important;
+    color: rgba(0,0,0,.55) !important;
+    transition: all .5s ease !important;
+    background-color : transparent !important;
+    padding: 10px !important;
+}
+.nav-btn:hover {
+    color: #fff !important;
+    background-color: #0d6efd !important;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+}
