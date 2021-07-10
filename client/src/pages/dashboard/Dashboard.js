@@ -9,10 +9,10 @@ import {NotesState} from "../../components/notes/NotesState";
 
 const Dashboard = () => {
     const history = useHistory();
-    const auth = useSelector(state => state.auth)
+    const { auth } = useSelector(state => state)
 
     if (!auth.isAuthenticated) {
-        history.push("/");
+        history.push("/login");
     }
 
     return (

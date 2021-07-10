@@ -7,7 +7,7 @@ import {Container} from "react-bootstrap";
 
 const PrivateRoute = ({component: Component, ...rest}) => {
     const dispatch = useDispatch()
-    const auth = useSelector(state => state.auth)
+    const { auth } = useSelector(state => state)
 
 
     useEffect(() => {

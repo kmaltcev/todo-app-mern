@@ -1,7 +1,7 @@
 import {Button, Card} from "react-bootstrap";
 import React, {useContext} from "react";
-import {NotesContext} from "../context/NotesContext";
-import {WarningContext} from "../context/WarningContext";
+import {NotesContext} from "../../context/NotesContext";
+import {WarningContext} from "../../context/WarningContext";
 
 
 export const NoteItem = ({note}) => {
@@ -25,7 +25,7 @@ export const NoteItem = ({note}) => {
                 <Card.Subtitle className="mb-2 text-muted">
                     {new Date(note.date).toLocaleDateString()}
                 </Card.Subtitle>
-                {note.text.split("\n").map((line, idx) =>
+                {note?.text?.split("\n").map((line, idx) =>
                     <Card.Text className="mb-0" key={idx}>
                         {line}
                     </Card.Text>)}

@@ -5,7 +5,7 @@ import "./landing.css"
 import {useSelector} from "react-redux";
 
 let Landing = () => {
-    const auth = useSelector(state => state.auth)
+    const { auth } = useSelector(state => state)
 
     return (
         <Container className="reg-container align-items-center">

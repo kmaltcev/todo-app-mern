@@ -2,14 +2,15 @@
     flex-wrap: wrap;
     flex-grow: 1;
     flex-direction: row !important;
+    align-items: flex-start;
 }
 
 .note-item {
     margin-bottom: .75rem;
     margin-right: .75rem;
-    min-width: 14rem !important;
-    max-width: 14rem;
-    min-height: 10rem;
+    min-width: 13rem !important;
+    /*max-width: 13rem;*/
+    min-height: 14rem;
 }
 
 .note, .alert-title {

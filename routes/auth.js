@@ -25,7 +25,7 @@ networks.forEach(network => {
     )
 })
 
-router.get('/auth-success',  (req, res, next) => {
+router.get('/auth-success',  (req, res, _) => {
     currentUser = req.user
     res.redirect(`${FRONTEND_HOST}/dashboard`);
 })

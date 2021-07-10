@@ -1,5 +1,5 @@
 import "./notes.css"
-import {NoteItem} from "../NoteItem";
+import {NoteItem} from "./NoteItem";
 import {CardForm} from "../CardForm";
 import {Check} from "@material-ui/icons";
 import {NotesContext} from "../../context/NotesContext";

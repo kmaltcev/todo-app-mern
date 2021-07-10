@@ -1,3 +1,3 @@
 import {createContext} from "react";
 
-export const NotesContext = createContext()
+export const NotesContext = createContext(undefined)
