@@ -26,7 +26,7 @@ const strategy = new FacebookStrategy({
                 user.save(function (err) {
                     if (err) return done(err);
                     return done(null, user);
-                }).then(r => console.log(r));
+                });
             } else {
                 return done(null, user);
             }
