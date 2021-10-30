@@ -26,5 +26,5 @@ yarn-error.log*
 .idea
 
 #project
-/config/keys.js
+/config/keys_ignore.js
 /.idea/
